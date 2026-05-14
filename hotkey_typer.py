@@ -913,6 +913,18 @@ class HotkeyTyper:
             )
             return
 
+        # 检查快捷键是否已存在
+        if hotkey in self.hotkeys:
+            print(f"[界面] 快捷键 '{hotkey}' 已存在，当前内容: '{self.hotkeys[hotkey]}'")
+            # 弹出确认对话框询问是否覆盖
+            if not messagebox.askyesno(
+                "快捷键已存在",
+                f"该快捷键已经存在，当前内容为:\n\n'{self.hotkeys[hotkey]}'\n\n是否要覆盖为:\n\n'{text}'？"
+            ):
+                print("[界面] 用户选择不覆盖，取消添加")
+                return
+            print("[界面] 用户选择覆盖原快捷键")
+
         # 添加到配置
         print("[界面] 正在添加到配置...")
         if self.add_hotkey(hotkey, text):
